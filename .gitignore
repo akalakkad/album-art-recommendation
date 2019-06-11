@@ -5,4 +5,4 @@ venv/include
 venv/images
 *jpeg
 venv/.Python
-venv/cache-akalakkad
+venv/.cache-akalakkad
