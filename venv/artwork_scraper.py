@@ -1,0 +1,37 @@
+# Simple script to download album covers from Spotify
+# Using only albums authored by Spotify to simplfy the process
+
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+import requests
+
+# Client Authentication
+client_credentials_manager = SpotifyClientCredentials(client_id = 'b96ccf539ef440dc8c9afc665890dc87', client_secret = '02c1a4edc9b04d5d87edad615c75efa5')
+sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
+
+# URIs for Global and US Top 50 and Global and US Viral 50
+uris = ['spotify:playlist:37i9dQZEVXbLRQDuF5jeBp',
+'spotify:playlist:37i9dQZEVXbMDoHDwVN2tF',
+'spotify:playlist:37i9dQZEVXbLiRSasKsNU9',
+'spotify:playlist:37i9dQZEVXbKuaTI1Z1Afx',
+'spotify:playlist:37i9dQZF1DX1gRalH1mWrP',
+'spotify:playlist:37i9dQZF1DX5Ozry5U6G0d',
+'spotify:playlist:37i9dQZF1DXdbXrPNafg9d',
+'spotify:playlist:37i9dQZF1DXa71eg5j9dKZ',
+'spotify:playlist:37i9dQZF1DX6z20IXmBjWI']
+
+# Download function assigns image name and saves to folder
+def download(url, name):
+    img_data = requests.get(url).content
+    with open('images/' + str(name) + '.jpeg', 'wb') as handler:
+        handler.write(img_data)
+
+# Set up a counter for image names
+count = 0
+
+# Iterate through the URI's and download all the album artwork for each playlist
+for uri in uris:
+    results = sp.user_playlist('spotify', uri)
+    for track in results['tracks']['items']:
+        download(track['track']['album']['images'][2]['url'], count)
+        count += 1

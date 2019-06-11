@@ -1,0 +1,7 @@
+.DS_Store
+venv/bin
+venv/lib
+venv/include
+*jpeg
+venv/.Python
+venv.cache-akalakkad
