@@ -51,7 +51,7 @@ plt.plot(feat[0])
 path = "images"
 images = []
 
-for img in os.listdir(path):
+for img in sorted(os.listdir(path)):
   img_path = os.path.join(path,img)
   images.append(img_path)
 

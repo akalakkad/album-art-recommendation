@@ -1,5 +1,4 @@
-# ERROR: The index of the image I query maps to the features of a completely different
-# image in the PCA Feature Vectors. 
+# Mismatch fixed
 
 import os
 import numpy as np
@@ -11,7 +10,7 @@ from PIL import Image
 def load_images(p):
     images = []
 
-    for img in os.listdir(p):
+    for img in sorted(os.listdir(p)):
         img_path = os.path.join(p, img)
         if(img_path != 'images/.DS_Store'):
             images.append(img_path)
@@ -45,6 +44,5 @@ def recommend(idx, q, set):
 
 pca_features = np.load('album_pca_features.npy')
 img_set = load_images("images")
-print(img_set)
-# q,img = query(img_set)
-# recommend(q, img, img_set)
+q,img = query(img_set)
+recommend(q, img, img_set)
