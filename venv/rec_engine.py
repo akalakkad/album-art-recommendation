@@ -1,5 +1,6 @@
-# Mismatch fixed
+# Reccomendation engine for selecting similar album covers
 
+# Importing modules
 import os
 import numpy as np
 from scipy.spatial import distance
@@ -7,6 +8,7 @@ import matplotlib.pyplot as plt
 import random
 from PIL import Image
 
+# Load images from image set, ignoring .DS_Store
 def load_images(p):
     images = []
 
@@ -17,6 +19,7 @@ def load_images(p):
 
     return images
 
+# Query function selects random image returns index of image and image itself
 def query(set):
     query_idx = int(len(set) * random.random())
     img = Image.open(set[query_idx])
@@ -24,6 +27,9 @@ def query(set):
 
     return query_idx,img
 
+# Recommend function references query image's feature vector from pca feature set
+# Calculates distance between query features and features of all other images
+# Sorts and returns the closest five album covers
 def recommend(idx, q, set):
 
     rec_idx = [distance.cosine(pca_features[idx], feat) for feat in pca_features]
@@ -42,7 +48,12 @@ def recommend(idx, q, set):
     plt.imshow(concat_img)
     plt.show()
 
+# Loading pca_features
 pca_features = np.load('album_pca_features.npy')
+
+# Loading images
 img_set = load_images("images")
+
+# Querying image and recommending new album covers
 q,img = query(img_set)
 recommend(q, img, img_set)
