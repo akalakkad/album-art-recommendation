@@ -11,3 +11,12 @@ As a quick test, I decided to create a program that could recommend you albums w
 <br>
 <br>
 ![Example](example.png)
+
+## Setup
+You'll need some standard dependancies which you can find in the requirements.txt. Additionally you'll need to register an app within the Spotify API in order to scrape albums.
+<br>
+<br>
+If you wish to download your own set of album covers. Feel free to paste your own Spotify URI's into the album scraper script. You'll need to run the feature extraction script as well and save a new pca features vector in order to get the correct recommendations.
+<br>
+<br>
+If you just want to use the images I've collected, you can just unzip the .zip file included in the repo. 
