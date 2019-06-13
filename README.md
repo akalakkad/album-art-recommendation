@@ -10,7 +10,7 @@ As a quick test, I decided to create a program that could recommend you albums w
 
 <br>
 <br>
-![Example](example.png)
+![Example](example)
 
 ## Setup
 You'll need some standard dependancies which you can find in the requirements.txt. Additionally you'll need to register an app within the Spotify API in order to scrape albums. After creating an app in Spotify, create a file titled 'authentication.py' and save your client ID and client secret as variables 'client_id' and 'client_secret' in that file.
