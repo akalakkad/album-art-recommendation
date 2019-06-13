@@ -6,3 +6,4 @@ venv/images
 *jpeg
 venv/.Python
 venv/.cache-akalakkad
+venv/authentication.py

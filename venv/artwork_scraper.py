@@ -4,9 +4,10 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import requests
+from authentication import client_id, client_secret
 
 # Client Authentication
-client_credentials_manager = SpotifyClientCredentials(client_id = 'b96ccf539ef440dc8c9afc665890dc87', client_secret = '02c1a4edc9b04d5d87edad615c75efa5')
+client_credentials_manager = SpotifyClientCredentials(client_id = client_id, client_secret = client_secret)
 sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
 
 # URIs for Global and US Top 50 and Global and US Viral 50
