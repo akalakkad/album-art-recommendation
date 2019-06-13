@@ -10,6 +10,8 @@ client_credentials_manager = SpotifyClientCredentials(client_id = 'b96ccf539ef44
 sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
 
 # URIs for Global and US Top 50 and Global and US Viral 50
+# To create an new image set, just paste in the urls of playlists
+# you want to scrape album artwork from
 uris = ['spotify:playlist:37i9dQZEVXbLRQDuF5jeBp',
 'spotify:playlist:37i9dQZEVXbMDoHDwVN2tF',
 'spotify:playlist:37i9dQZEVXbLiRSasKsNU9',
