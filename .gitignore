@@ -7,3 +7,4 @@ venv/images
 venv/.Python
 venv/.cache-akalakkad
 venv/authentication.py
+venv/__pycache__
