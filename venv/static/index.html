@@ -1,32 +1,42 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <meta charset="utf-8">
     <title>Album Art Recommendation</title>
+
+    <link rel="stylesheet" href="./Styles/master.css">
+    <script type="text/javascript">
+      fetch("http://localhost:5000/query").then(data => {
+
+        return data.blob();
+      }).then(result => {
+        let objUrl = URL.createObjectURL(result);
+        let img = document.createElement('img');
+        img.src = objUrl;
+        document.body.appendChild(img);
+      });
+    </script>
   </head>
   <body>
-    <main>
-      <div class="container">
-          <div>
-            <h2>Ablum-fy</h2>
-          </div>
-          <div id="album-view">
-            <img id="album" src="" alt="">
-          </div>
-          <div id="album-info">
-            <h5>Song</h5>
-            <h5>Artist</h5>
-            <h5>Album</h5>
-          </div>
-      </div>
-      <div class="container">
-        <div id="rec-title">
-          <h2>Album Recommendations</h2>
-        </div>
-        <div id="rec-albums">
-
-        </div>
-      </div>
-    </main>
+      <main>
+        <h1>Album Recommendation</h1>
+      </main>
+      <button type="button" name="button">Recommend</button>
   </body>
+
+  <script type="text/javascript">
+    let b = document.querySelector('button');
+    b.addEventListener('click', e => {
+      fetch("http://localhost:5000/query").then(data => {
+
+        return data.blob();
+      }).then(result => {
+        let objUrl = URL.createObjectURL(result);
+        let img = document.createElement('img');
+        img.src = objUrl;
+        document.body.appendChild(img);
+      });
+    });
+  </script>
 </html>

@@ -25,35 +25,22 @@ def query(set):
     img = Image.open(set[query_idx])
     img.resize((int(img.width * 100 / img.height), 100))
 
-    return query_idx,img
+    return query_idx
 
 # Recommend function references query image's feature vector from pca feature set
 # Calculates distance between query features and features of all other images
 # Sorts and returns the closest five album covers
-def recommend(idx, q, set):
+def recommend(idx, set):
 
     rec_idx = [distance.cosine(pca_features[idx], feat) for feat in pca_features]
-    idx_closest = sorted(range(len(rec_idx)), key=lambda k: rec_idx[k])[1:6]
+    idx_closest = sorted(range(len(rec_idx)), key=lambda k: rec_idx[k])[0]
 
-    thumbs = []
-    thumbs.append(q)
+    img = Image.open(set[idx_closest])
 
-    for i in idx_closest:
-        img = Image.open(set[i])
-        img.resize((int(img.width * 100 / img.height), 100))
-        thumbs.append(img)
-
-    concat_img = np.concatenate([np.asarray(t) for t in thumbs], axis=1)
-    plt.figure(figsize=(16,12))
-    plt.imshow(concat_img)
-    plt.show()
+    return img
 
 # Loading pca_features
 pca_features = np.load('album_pca_features.npy')
 
 # Loading images
 img_set = load_images("images")
-
-# Querying image and recommending new album covers
-q,img = query(img_set)
-recommend(q, img, img_set)
