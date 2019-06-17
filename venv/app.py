@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify, send_file
 from rec_engine import pca_features, img_set, query, recommend
 from io import BytesIO
-import random
-
 
 app = Flask(__name__, static_url_path='')
 
@@ -25,7 +23,6 @@ def add_header(response):
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
-
 
 def prep_image(pil_img):
     img_io = BytesIO()

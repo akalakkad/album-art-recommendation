@@ -12,15 +12,18 @@
         return data.blob();
       }).then(result => {
         let objUrl = URL.createObjectURL(result);
-        let img = document.createElement('img');
+        let img = document.getElementById('current');
         img.src = objUrl;
-        document.body.appendChild(img);
       });
     </script>
   </head>
   <body>
       <main>
         <h1>Album Recommendation</h1>
+        <img src="" id="current" alt="">
+        <div id="rec">
+
+        </div>
       </main>
       <button type="button" name="button">Recommend</button>
   </body>
@@ -35,7 +38,7 @@
         let objUrl = URL.createObjectURL(result);
         let img = document.createElement('img');
         img.src = objUrl;
-        document.body.appendChild(img);
+        document.getElementById('rec').appendChild(img);
       });
     });
   </script>
