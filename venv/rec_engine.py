@@ -8,6 +8,9 @@ import matplotlib.pyplot as plt
 import random
 from PIL import Image
 
+import base64
+from io import BytesIO
+
 # Load images from image set, ignoring .DS_Store
 def load_images(p):
     images = []
@@ -33,11 +36,21 @@ def query(set):
 def recommend(idx, set):
 
     rec_idx = [distance.cosine(pca_features[idx], feat) for feat in pca_features]
-    idx_closest = sorted(range(len(rec_idx)), key=lambda k: rec_idx[k])[0]
+    idx_closest = sorted(range(len(rec_idx)), key=lambda k: rec_idx[k])[1:6]
 
-    img = Image.open(set[idx_closest])
+    data = {}
+    for i in idx_closest:
+        img = Image.open(set[i])
+        data[i] = prep_image(img)
 
-    return img
+    return data
+
+def prep_image(pil_img):
+    buffered = BytesIO()
+    pil_img.save(buffered, format="JPEG")
+    im_data = base64.b64encode(buffered.getvalue()).decode('utf-8')
+    data_url = 'data:image/jpg;base64,' + im_data
+    return data_url
 
 # Loading pca_features
 pca_features = np.load('album_pca_features.npy')

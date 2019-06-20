@@ -7,13 +7,36 @@
 
     <link rel="stylesheet" href="./Styles/master.css">
     <script type="text/javascript">
-      fetch("http://localhost:5000/query").then(data => {
-
-        return data.blob();
+      fetch('http://localhost:5000/init').then(response => {
+        return response.json();
       }).then(result => {
-        let objUrl = URL.createObjectURL(result);
-        let img = document.getElementById('current');
-        img.src = objUrl;
+        let current = document.getElementById('current');
+        current.src = result.img;
+        current.alt = result.index;
+
+        let data = {index: result.index};
+
+        fetch('http://localhost:5000/suggest', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then(response => {
+
+          return response.json();
+        }).then(result => {
+            let items = Object.entries(result);
+            let iterator = items.entries();
+
+            for(let [index, item] of iterator) {
+              recs[index].src = item[1];
+              recs[index].alt = item[0];
+            }
+        });
+
+
       });
     </script>
   </head>
@@ -21,24 +44,84 @@
       <main>
         <h1>Album Recommendation</h1>
         <img src="" id="current" alt="">
+        <button type="button" name="button">Shuffle</button>
         <div id="rec">
-
+          <img src="" class="rec-img" alt="">
+          <img src="" class="rec-img" alt="">
+          <img src="" class="rec-img" alt="">
+          <img src="" class="rec-img" alt="">
+          <img src="" class="rec-img" alt="">
         </div>
       </main>
-      <button type="button" name="button">Recommend</button>
   </body>
 
   <script type="text/javascript">
     let b = document.querySelector('button');
-    b.addEventListener('click', e => {
-      fetch("http://localhost:5000/query").then(data => {
+    let recs = document.getElementsByClassName('rec-img');
+    let current = document.getElementById('current');
 
-        return data.blob();
+
+    for(r of recs) {
+      r.addEventListener('click', e => {
+        current.src = e.target.src;
+        current.alt = e.target.alt;
+
+        let data = {index: e.target.alt};
+
+        fetch('http://localhost:5000/suggest', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then(response => {
+
+          return response.json();
+        }).then(result => {
+            let items = Object.entries(result);
+            let iterator = items.entries();
+
+            for(let [index, item] of iterator) {
+              recs[index].src = item[1];
+              recs[index].alt = item[0];
+            }
+        });
+
+      });
+    }
+
+    b.addEventListener('click', e => {
+      let img = document.getElementById('current');
+
+      fetch('http://localhost:5000/init').then(response => {
+        return response.json();
       }).then(result => {
-        let objUrl = URL.createObjectURL(result);
-        let img = document.createElement('img');
-        img.src = objUrl;
-        document.getElementById('rec').appendChild(img);
+        let current = document.getElementById('current');
+        current.src = result.img;
+        current.alt = result.index;
+
+        let data = {index: result.index};
+
+        fetch('http://localhost:5000/suggest', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then(response => {
+
+          return response.json();
+        }).then(result => {
+            let items = Object.entries(result);
+            let iterator = items.entries();
+
+            for(let [index, item] of iterator) {
+              recs[index].src = item[1];
+              recs[index].alt = item[0];
+            }
+        });
       });
     });
   </script>

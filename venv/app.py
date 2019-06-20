@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, send_file
-from rec_engine import pca_features, img_set, query, recommend
-from io import BytesIO
+from rec_engine import pca_features, img_set, query, recommend, prep_image
+from PIL import Image
+import json
+
 
 app = Flask(__name__, static_url_path='')
 
@@ -8,24 +10,23 @@ app = Flask(__name__, static_url_path='')
 def root():
     return app.send_static_file('index.html')
 
-@app.route('/query')
-def send_image():
+@app.route('/init')
+def init():
     q = query(img_set)
-    img = recommend(q, img_set)
-    return prep_image(img)
+    img = Image.open(img_set[q])
+    imgURL = prep_image(img)
+    return jsonify(index=q, img=imgURL)
+
+
+@app.route('/suggest', methods=['POST'])
+def suggest():
+    data = json.loads(request.data)
+    idx = int(data["index"])
+    data = recommend(idx, img_set)
+    return jsonify(data)
 
 @app.after_request
 def add_header(response):
-    """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to cache the rendered page for 10 minutes.
-    """
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
-
-def prep_image(pil_img):
-    img_io = BytesIO()
-    pil_img.save(img_io, 'JPEG', quality=70)
-    img_io.seek(0)
-    return send_file(img_io, mimetype='image/jpeg')
