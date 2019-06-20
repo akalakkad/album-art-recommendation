@@ -20,8 +20,9 @@ def init():
 
 @app.route('/suggest', methods=['POST'])
 def suggest():
-    data = json.loads(request.data)
-    idx = int(data["index"])
+
+    info = json.loads(request.data.decode('utf-8'))
+    idx = int(info["index"])
     data = recommend(idx, img_set)
     return jsonify(data)
 
