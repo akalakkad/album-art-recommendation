@@ -10,7 +10,6 @@
       fetch('http://localhost:5000/init').then(response => {
         return response.json();
       }).then(result => {
-        console.log(result);
         let current = document.getElementById('current');
         current.src = result.img;
         current.alt = result.index;

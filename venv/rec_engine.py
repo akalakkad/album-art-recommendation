@@ -32,7 +32,7 @@ def query(set):
 
 # Recommend function references query image's feature vector from pca feature set
 # Calculates distance between query features and features of all other images
-# Sorts and returns the closest five album covers
+# Sorts and returns the closest five album covers indices and urls
 def recommend(idx, set):
 
     rec_idx = [distance.cosine(pca_features[idx], feat) for feat in pca_features]
