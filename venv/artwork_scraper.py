@@ -29,12 +29,8 @@ def download(url, name):
     with open('images/' + str(name) + '.jpeg', 'wb') as handler:
         handler.write(img_data)
 
-# Set up a counter for image names
-count = 0
-
 # Iterate through the URI's and download all the album artwork for each playlist
 for uri in uris:
     results = sp.user_playlist('spotify', uri)
     for track in results['tracks']['items']:
-        download(track['track']['album']['images'][2]['url'], count)
-        count += 1
+        download(track['track']['album']['images'][0]['url'], track['track']['uri'])
