@@ -3,6 +3,7 @@ venv/bin
 venv/lib
 venv/include
 venv/images
+venv/prev_imgs
 *jpeg
 venv/.Python
 venv/.cache-akalakkad
