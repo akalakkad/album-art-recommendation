@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', e => {
 let b = document.querySelector('button');
 let recs = document.getElementsByClassName('rec-img');
 
-
 for(let r of recs) {
   r.addEventListener('click', e => {
     let current = document.getElementById('current');
