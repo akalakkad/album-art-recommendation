@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
 from rec_engine import pca_features, img_set, query, recommend, prep_image
 from PIL import Image
 import json
 
 
+
 app = Flask(__name__, static_url_path='')
+CORS(app)
 
 @app.route('/')
 def root():
