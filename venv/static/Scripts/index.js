@@ -13,9 +13,12 @@ document.addEventListener('DOMContentLoaded', e => {
     let current = document.getElementById('current');
 
     token = result;
-    query();
-
-
+    query().then(uri => {
+      let s = reqSong(uri.split(':')[2], token);
+      s.then(result => {
+        player.src = result;
+      });
+    });
 
 
     for(let r of recs) {
@@ -38,7 +41,13 @@ document.addEventListener('DOMContentLoaded', e => {
     }
 
     shuffle.addEventListener('click', e => {
-      query();
+      query().then(uri => {
+        let s = reqSong(uri.split(':')[2], token);
+        s.then(result => {
+          player.src = result;
+          player.play();
+        });
+      });
     });
 
     play.addEventListener('click', e => {

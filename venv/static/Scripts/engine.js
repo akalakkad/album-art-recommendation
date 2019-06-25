@@ -1,5 +1,9 @@
+
+
+
 export function query() {
-  fetch('http://localhost:5000/init').then(response => {
+
+  return fetch('http://localhost:5000/init').then(response => {
     return response.json();
   }).then(result => {
     let current = document.getElementById('current');
@@ -8,9 +12,19 @@ export function query() {
     current.setAttribute('data-uri', result.uri);
 
     let data = {index: result.index};
-
     suggest(data);
+
+    return new Promise(function(resolve, reject) {
+      setInterval(() => {
+
+        resolve(result.uri);
+      }, 1000);
+    });
+
   });
+
+
+
 }
 
 export function suggest(data) {
