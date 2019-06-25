@@ -30,7 +30,7 @@ export function reqSong(uri, token) {
 
   let url = `https://api.spotify.com/v1/tracks/${uri}`;
 
-  fetch(url, {method: 'GET', mode: 'cors', headers: {'Authorization': 'Bearer ' + token}})
+  return fetch(url, {method: 'GET', mode: 'cors', headers: {'Authorization': 'Bearer ' + token}})
               .then(response => {
 
                 return response.json();
@@ -39,10 +39,9 @@ export function reqSong(uri, token) {
                 console.log({
                   track: result.name,
                   artist: result.artists[0].name,
+                  url: result.preview_url
                 });
 
-                let a = new Audio(result.preview_url);
-                a.play();
-
+                return result.preview_url;
               });
 }
