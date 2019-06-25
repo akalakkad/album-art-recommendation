@@ -5,6 +5,7 @@ export function query() {
     let current = document.getElementById('current');
     current.src = result.img;
     current.alt = result.index;
+    current.setAttribute('data-uri', result.uri);
 
     let data = {index: result.index};
 
@@ -29,8 +30,9 @@ export function suggest(data) {
       let recs = document.getElementsByClassName('rec-img');
 
       for(let [index, item] of iterator) {
-        recs[index].src = item[1];
+        recs[index].src = item[1]["image"];
         recs[index].alt = item[0];
+        recs[index].setAttribute('data-uri', item[1]["uri"]);
       }
   });
 }
