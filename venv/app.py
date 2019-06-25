@@ -12,11 +12,14 @@ def root():
 
 @app.route('/init')
 def init():
-    q = query(img_set)
+    q, uri = query(img_set)
     img = Image.open(img_set[q])
     imgURL = prep_image(img)
-    return jsonify(index=q, img=imgURL)
+    return jsonify(index=q, img=imgURL, uri=uri)
 
+@app.route('/auth')
+def auth():
+    return jsonify("Spotify Authorized")
 
 @app.route('/suggest', methods=['POST'])
 def suggest():

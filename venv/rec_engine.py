@@ -25,10 +25,12 @@ def load_images(p):
 # Query function selects random image returns index of image and image itself
 def query(set):
     query_idx = int(len(set) * random.random())
-    img = Image.open(set[query_idx])
-    img.resize((int(img.width * 100 / img.height), 100))
+    uri = set[query_idx].split('/')[1].split('.')[0]
+    print(uri)
+    # img = Image.open(set[query_idx])
+    # img.resize((int(img.width * 100 / img.height), 100))
 
-    return query_idx
+    return query_idx, uri
 
 # Recommend function references query image's feature vector from pca feature set
 # Calculates distance between query features and features of all other images
@@ -41,7 +43,9 @@ def recommend(idx, set):
     data = {}
     for i in idx_closest:
         img = Image.open(set[i])
-        data[i] = prep_image(img)
+        uri = set[i].split('/')[1].split('.')[0]
+        data[i] = {"image": prep_image(img),
+                    "uri": uri}
 
     return data
 
