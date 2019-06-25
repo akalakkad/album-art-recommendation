@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', e => {
         current.alt = e.target.alt;
         current.setAttribute("data-uri", e.target.getAttribute("data-uri"));
 
-        let song = reqSong(e.target.getAttribute("data-uri").split(':')[2], token);
-        song.then(result => {
+        let song = reqSong(e.target.getAttribute("data-uri").split(':')[2], token).then(result => {
           player.src = result;
           player.play();
         });
@@ -42,8 +41,7 @@ document.addEventListener('DOMContentLoaded', e => {
 
     shuffle.addEventListener('click', e => {
       query().then(uri => {
-        let s = reqSong(uri.split(':')[2], token);
-        s.then(result => {
+        let s = reqSong(uri.split(':')[2], token).then(result => {
           player.src = result;
           player.play();
         });
@@ -52,11 +50,10 @@ document.addEventListener('DOMContentLoaded', e => {
 
     play.addEventListener('click', e => {
       if(player.src == '') {
-        let s = reqSong(current.getAttribute('data-uri').split(':')[2], token);
-        s.then(result => {
+        let s = reqSong(current.getAttribute('data-uri').split(':')[2], token).then(result => {
           player.src = result;
           player.play();
-        })
+        });
       } else {
         player.play();
       }

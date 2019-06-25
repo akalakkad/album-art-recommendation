@@ -42,6 +42,11 @@ export function reqSong(uri, token) {
                   url: result.preview_url
                 });
 
-                return result.preview_url;
+                return new Promise(function(resolve, reject) {
+
+                  setInterval(() => {
+                    resolve(result.preview_url);
+                  }, 1000);
+                });
               });
 }
