@@ -2,7 +2,7 @@ export let login = new Promise(function(resolve, reject) {
   const scope = encodeURIComponent('user-read-email');
 
     let client_id = 'b96ccf539ef440dc8c9afc665890dc87';
-    let redirect = encodeURIComponent('http://localhost:5000/auth');
+    let redirect = encodeURIComponent('https://c9e9877b.ngrok.io/auth');
 
     let url = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect}&scope=${scope}&response_type=token`;
 

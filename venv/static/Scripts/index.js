@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', e => {
     let recs = document.getElementsByClassName('rec-img');
     let current = document.getElementById('current');
 
+    console.log(result);
     token = result;
     query().then(uri => {
       let s = reqSong(uri.split(':')[2], token);
