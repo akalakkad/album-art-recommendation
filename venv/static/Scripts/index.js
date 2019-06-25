@@ -5,19 +5,23 @@ document.addEventListener('DOMContentLoaded', e => {
   let token = '';
   let player = new Audio();
 
-
   login.then(result => {
-    let b = document.querySelector('button');
+    let play = document.getElementById('play');
+    let pause = document.getElementById('pause');
+    let shuffle = document.getElementById('shuffle');
     let recs = document.getElementsByClassName('rec-img');
+    let current = document.getElementById('current');
 
     token = result;
     query();
 
 
+
+
     for(let r of recs) {
       r.addEventListener('click', e => {
 
-        let current = document.getElementById('current');
+
         current.src = e.target.src;
         current.alt = e.target.alt;
         current.setAttribute("data-uri", e.target.getAttribute("data-uri"));
@@ -33,10 +37,25 @@ document.addEventListener('DOMContentLoaded', e => {
       });
     }
 
-    b.addEventListener('click', e => {
+    shuffle.addEventListener('click', e => {
       query();
     });
 
+    play.addEventListener('click', e => {
+      if(player.src == '') {
+        let s = reqSong(current.getAttribute('data-uri').split(':')[2], token);
+        s.then(result => {
+          player.src = result;
+          player.play();
+        })
+      } else {
+        player.play();
+      }
+    });
+
+    pause.addEventListener('click', e => {
+      player.pause();
+    });
 
   })
 });
