@@ -26,7 +26,6 @@ def load_images(p):
 def query(set):
     query_idx = int(len(set) * random.random())
     uri = set[query_idx].split('/')[1].split('.')[0]
-    print(uri)
     # img = Image.open(set[query_idx])
     # img.resize((int(img.width * 100 / img.height), 100))
 
